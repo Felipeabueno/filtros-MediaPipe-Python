@@ -1,35 +1,52 @@
 import cv2
 import mediapipe as mp
+import math
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
 class Rastreador:
     def __init__(self):
-        base_options = python.BaseOptions(model_asset_path='hand_landmarker.task')
-        options = vision.HandLandmarkerOptions(base_options=base_options, num_hands=2)
-        self.detector = vision.HandLandmarker.create_from_options(options)
+        base_maos = python.BaseOptions(model_asset_path='hand_landmarker.task')
+        self.det_maos = vision.HandLandmarker.create_from_options(vision.HandLandmarkerOptions(base_options=base_maos, num_hands=2))
+
+        base_rosto = python.BaseOptions(model_asset_path='face_landmarker.task')
+        self.det_rosto = vision.FaceLandmarker.create_from_options(vision.FaceLandmarkerOptions(base_options=base_rosto, num_faces=1))
 
     def processar_frame(self, frame):
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame_rgb)
+        mp_img = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame_rgb)
         
-        resultados = self.detector.detect(mp_image)
+        res_maos = self.det_maos.detect(mp_img)
+        res_rosto = self.det_rosto.detect(mp_img)
         
-        # Lista pra guardar as coordenadas limpinhas e mandar pra fora
-        coordenadas_limpas = []
+        coordenadas_maos = res_maos.hand_landmarks if res_maos.hand_landmarks else []
+        info_rosto = None
 
-        if resultados.hand_landmarks:
+        if res_rosto.face_landmarks:
+            rosto = res_rosto.face_landmarks[0]
             altura, largura, _ = frame.shape
-            for mao in resultados.hand_landmarks:
-                
-                # Guarda as coordenadas da mão atual na lista
-                coordenadas_limpas.append(mao)
-                
-                # Opcional: desenhar as bolinhas verdes de debug
-                for ponto in mao:
-                    x = int(ponto.x * largura)
-                    y = int(ponto.y * altura)
-                    cv2.circle(frame, (x, y), 2, (0, 255, 0), -1)
-                    
-        # Devolvemos a imagem e a lista de coordenadas juntas!
-        return frame, coordenadas_limpas
+            
+            # --- SENSOR DE EXPRESSÃO MAIS SENSÍVEL ---
+            abertura_boca = math.hypot(rosto[13].x - rosto[14].x, rosto[13].y - rosto[14].y)
+            dist_sobrancelhas = math.hypot(rosto[105].x - rosto[334].x, rosto[105].y - rosto[334].y)
+
+            expressao = "neutro"
+            # Se abrir um pouco a boca ou sorrir, fica feliz. 
+            if abertura_boca > 0.03: 
+                expressao = "feliz"
+            # Se juntar as sobrancelhas, fica bravo.
+            elif dist_sobrancelhas < 0.13: 
+                expressao = "bravo"
+
+            # --- AUMENTANDO O TAMANHO DO EMOJI ---
+            margem_x = 50
+            margem_y = 80 # Mais espaço para cima para cobrir a testa/cabelo
+            
+            x_min = max(0, int(min([p.x for p in rosto]) * largura) - margem_x)
+            x_max = min(largura, int(max([p.x for p in rosto]) * largura) + margem_x)
+            y_min = max(0, int(min([p.y for p in rosto]) * altura) - margem_y)
+            y_max = min(altura, int(max([p.y for p in rosto]) * altura) + margem_x)
+            
+            info_rosto = {"expressao": expressao, "bbox": (x_min, y_min, x_max, y_max)}
+
+        return frame, coordenadas_maos, info_rosto
