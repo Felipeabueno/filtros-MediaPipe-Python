@@ -1,34 +1,89 @@
-Motor de Realidade Aumentada em Python com Visão Computacional
+#  Motor de Realidade Aumentada (AR) com Python
 
-Sobre o Projeto
+Projeto de realidade aumentada desenvolvido em Python que cria um portal interativo no vídeo da câmera através do rastreamento de mãos e rostos em tempo real.
 
-Este projeto consiste em um motor de realidade aumentada desenvolvido em Python com foco em interação gestual e processamento de imagem em tempo real. A ideia principal surgiu do desejo de criar um sistema onde o usuário pudesse manipular um portal visual usando as mãos, controlando filtros gráficos dinâmicos e interagindo com rastreamento facial baseado em expressões.
+---
 
-O sistema faz a leitura da webcam quadro a quadro, utilizando redes neurais otimizadas para detectar pontos específicos das mãos e do rosto, aplicando matrizes de transformação geométrica e máscaras para fundir efeitos visuais sem perda de fluidez.
+##  Demonstração / Preview
+*(Adicione aqui um print ou gif da sua aplicação funcionando, por exemplo: `![Preview da Aplicação](assets/demo.gif)`)*
 
-Funcionalidades
+---
 
-Portal Polimórfico: O enquadramento do portal se adapta geometricamente à posição dos dedos indicadores e polegares de duas mãos, mantendo as bordas alinhadas mesmo com inclinações.
-Sensor de Proximidade por Dedões: A troca de filtros foi pensada para ser fluida. Ao aproximar os polegares, o sistema reconhece o gatilho e alterna o efeito visual instantaneamente.
-Arsenal de Filtros: O sistema conta com sete modos diferentes de renderização na região de interesse, indo desde mapas de calor e visão estilo raio-x até distorções geométricas e um sistema de emojis reativos mapeados pelas expressões do rosto.
+##  Stack Tecnológica
+* **Python** — Linguagem principal de desenvolvimento.
+* **OpenCV (`cv2`)** — Processamento digital de imagens, manipulação de matrizes, recortes por região de interesse (ROI) e alpha blending.
+* **MediaPipe Tasks Vision** — Inferência de Machine Learning de alta performance para rastreamento de *Hand Landmarker* e *Face Landmarker*.
+* **NumPy** — Computação numérica e manipulação de matrizes de pixels.
 
-Tecnologias Utilizadas
+---
 
-Python como linguagem principal de desenvolvimento.
-OpenCV para manipulação do fluxo de vídeo, matrizes numpy, recortes por região de interesse e aplicação de transparências alfa.
-MediaPipe Tasks para a inferência dos modelos de machine learning voltados ao rastreamento de mãos e landmarks faciais.
+##  Arquitetura do Projeto
+O código é modularizado para separar a lógica de negócio, visão computacional e geometria:
+* `main.py` — Orquestrador principal responsável por capturar o fluxo da webcam e reger o loop da aplicação.
+* `hand_tracking.py` — Módulo responsável por carregar os modelos de IA e processar as coordenadas dos landmarks das mãos e do rosto.
+* `geometry.py` — Módulo matemático que calcula o polígono inclinado do portal e gerencia o gatilho de colisão por toque dos polegares.
+* `filters.py` — Fábrica de efeitos visuais responsável pelo processamento de imagem e sobreposição dinâmica dos sprites PNG transparentes.
 
-Estrutura do Repositório
+---
 
-main.py: Arquivo principal que inicia a captura de vídeo e gerencia o loop de execução.
-hand_tracking.py: Módulo responsável por carregar os modelos de IA e processar as coordenadas das mãos e do rosto.
-geometry.py: Módulo matemático que calcula o polígono delimitador do portal e controla a lógica de colisão dos dedos.
-filters.py: Central de processamento de imagem que aplica os filtros visuais e gerencia a sobreposição dos sprites em PNG.
+##  Funcionalidades
+1. **Portal Polimórfico Inclinado:** As bordas do portal se adaptam perfeitamente à posição dos dedos indicadores e polegares de ambas as mãos, mantendo um enquadramento geométrico estável em qualquer ângulo.
+2. **Sensor de Toque por Dedões:** Aproxime os polegares para disparar o gatilho e alternar entre os filtros visuais instantaneamente.
+3. **Arsenal de Filtros Dinâmicos:**
+   * Mapa de Calor (`COLORMAP_INFERNO`)
+   * Pixelado Retro (Estilo Minecraft)
+   * Raio-X Neon (Detecção de contornos via Canny)
+   * Negativo Fotográfico
+   * Filtro Sépia (Vintage)
+   * Cyberpunk (Inversão de canais RGB)
+   * **Memoji 2D Reativo:** Sistema de rastreamento facial que mapeia as expressões do rosto (Neutro, Feliz e Bravo) e aplica o sprite PNG correspondente em tempo real.
 
-Como Executar na sua Máquina
+---
 
-Primeiro, clone este repositório na sua máquina e entre na pasta do projeto pelo terminal.
-Instale as dependências essenciais executando o comando pip install opencv-python mediapipe numpy.
-Certifique-se de baixar os arquivos de modelo hand_landmarker.task e face_landmarker.task, deixando-os salvos na raiz do projeto junto com os códigos.
-Adicione três imagens em formato PNG com fundo transparente nomeadas como neutro.png, feliz.png e bravo.png na mesma pasta.
-Por fim, execute o projeto rodando o script principal pelo terminal.
+##  Como Executar Localmente
+
+### Pré-requisitos
+* Python 3.8 ou superior instalado.
+* Uma webcam funcional conectada ao computador.
+
+### Passo a passo
+
+1. **Clone o repositório:**
+   ```bash
+   git clone [https://github.com/Felipeabueno/Motor-AR-Python.git](https://github.com/Felipeabueno/Motor-AR-Python.git)
+   cd Motor-AR-Python
+
+   Crie e ative um ambiente virtual (Opcional, mas recomendado):
+
+```Bash
+python -m venv venv
+# No Windows (PowerShell):
+.\venv\Scripts\Activate
+```
+
+Instale as dependências:
+
+```Bash
+pip install opencv-python mediapipe numpy
+```
+
+Baixe os arquivos de modelo do MediaPipe:
+
+Coloque os arquivos hand_landmarker.task e face_landmarker.task na raiz do projeto.
+
+Adicione os ativos (Assets) faciais:
+
+Insira três imagens .png com fundo transparente nomeadas exatamente como: neutro.png, feliz.png e bravo.png.
+
+Execute a aplicação:
+
+```Bash
+python main.py
+```
+
+Depois de colar isso no `README.md`, salvar (`Ctrl + S`), rodar o comando de atualizar a URL do repositório que ajustamos agora pouco, é só mandar:
+
+```bash
+git add .
+git commit -m "docs: atualiza readme e estrutura do projeto"
+git push -u origin main
