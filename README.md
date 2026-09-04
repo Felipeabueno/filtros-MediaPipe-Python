@@ -75,7 +75,7 @@ Insira três imagens .png com fundo transparente nomeadas exatamente como: neutr
 ### Execute a aplicação:
 
 ```Bash
-python main.py
+py main.py
 ```
 
 **Depois de colar isso no `README.md`, salvar (`Ctrl + S`), rodar o comando de atualizar a URL do repositório que ajustamos agora pouco, é só mandar:**
