@@ -43,7 +43,7 @@ O código é modularizado para separar a lógica de negócio, visão computacion
 
 ### Passo a passo
 
-1. **Clone o repositório:**
+**Clone o repositório:**
    ```bash
    git clone [https://github.com/Felipeabueno/Motor-AR-Python.git](https://github.com/Felipeabueno/Motor-AR-Python.git)
    cd Motor-AR-Python
