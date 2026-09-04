@@ -78,9 +78,4 @@ Insira três imagens .png com fundo transparente nomeadas exatamente como: neutr
 py main.py
 ```
 
-**Depois de colar isso no `README.md`, salvar (`Ctrl + S`), rodar o comando de atualizar a URL do repositório que ajustamos agora pouco, é só mandar:**
 
-```bash
-git add .
-git commit -m "docs: atualiza readme e estrutura do projeto"
-git push -u origin main
