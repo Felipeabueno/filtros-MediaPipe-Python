@@ -4,11 +4,6 @@ Projeto de realidade aumentada desenvolvido em Python que cria um portal interat
 
 ---
 
-##  Demonstração / Preview
-*(Adicione aqui um print ou gif da sua aplicação funcionando, por exemplo: `![Preview da Aplicação](assets/demo.gif)`)*
-
----
-
 ##  Stack Tecnológica
 * **Python** — Linguagem principal de desenvolvimento.
 * **OpenCV (`cv2`)** — Processamento digital de imagens, manipulação de matrizes, recortes por região de interesse (ROI) e alpha blending.
