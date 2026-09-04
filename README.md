@@ -72,13 +72,13 @@ Adicione os ativos (Assets) faciais:
 
 Insira três imagens .png com fundo transparente nomeadas exatamente como: neutro.png, feliz.png e bravo.png.
 
-Execute a aplicação:
+# Execute a aplicação:
 
 ```Bash
 python main.py
 ```
 
-Depois de colar isso no `README.md`, salvar (`Ctrl + S`), rodar o comando de atualizar a URL do repositório que ajustamos agora pouco, é só mandar:
+## Depois de colar isso no `README.md`, salvar (`Ctrl + S`), rodar o comando de atualizar a URL do repositório que ajustamos agora pouco, é só mandar:
 
 ```bash
 git add .
