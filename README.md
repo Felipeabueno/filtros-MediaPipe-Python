@@ -47,8 +47,10 @@ O código é modularizado para separar a lógica de negócio, visão computacion
    ```bash
    git clone [https://github.com/Felipeabueno/Motor-AR-Python.git](https://github.com/Felipeabueno/Motor-AR-Python.git)
    cd Motor-AR-Python
+```
 
    Crie e ative um ambiente virtual (Opcional, mas recomendado):
+
 
 ```Bash
 python -m venv venv
