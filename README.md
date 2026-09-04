@@ -49,7 +49,7 @@ O código é modularizado para separar a lógica de negócio, visão computacion
    cd Motor-AR-Python
 ```
 
-### Crie e ative um ambiente virtual (Opcional, mas recomendado):
+**Crie e ative um ambiente virtual (Opcional, mas recomendado):**
 
 
 ```Bash
@@ -58,19 +58,19 @@ python -m venv venv
 .\venv\Scripts\Activate
 ```
 
-### Instale as dependências:
+**Instale as dependências:**
 
 ```Bash
 pip install opencv-python mediapipe numpy
 ```
 
-### Baixe os arquivos de modelo do MediaPipe:
+Baixe os arquivos de modelo do MediaPipe:
 
-### Coloque os arquivos hand_landmarker.task e face_landmarker.task na raiz do projeto.
+Coloque os arquivos hand_landmarker.task e face_landmarker.task na raiz do projeto.
 
-### Adicione os ativos (Assets) faciais:
+Adicione os ativos (Assets) faciais:
 
-### Insira três imagens .png com fundo transparente nomeadas exatamente como: neutro.png, feliz.png e bravo.png.
+Insira três imagens .png com fundo transparente nomeadas exatamente como: neutro.png, feliz.png e bravo.png.
 
 ### Execute a aplicação:
 
@@ -78,7 +78,7 @@ pip install opencv-python mediapipe numpy
 python main.py
 ```
 
-### Depois de colar isso no `README.md`, salvar (`Ctrl + S`), rodar o comando de atualizar a URL do repositório que ajustamos agora pouco, é só mandar:
+**Depois de colar isso no `README.md`, salvar (`Ctrl + S`), rodar o comando de atualizar a URL do repositório que ajustamos agora pouco, é só mandar:**
 
 ```bash
 git add .
